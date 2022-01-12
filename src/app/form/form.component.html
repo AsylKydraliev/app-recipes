@@ -1,0 +1,89 @@
+<div class="container mb-5">
+  <h2 class="mt-2 text-center">Add recipe</h2>
+
+  <form class="col mt-4" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mb-3 mt-3">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="name"
+        name="name"
+        placeholder="Name"
+      >
+      <small
+        *ngIf="getFormErrors('name', 'required')"
+        class="form-text invalid-form-text">
+        Enter recipe name
+      </small>
+    </div>
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="description"
+        name="description"
+        placeholder="description"
+      >
+      <small
+        *ngIf="getFormErrors('description', 'required')"
+        class="form-text invalid-form-text">
+        Enter recipe description
+      </small>
+    </div>
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="imageUrl"
+        name="imageUrl"
+        placeholder="image url"
+      >
+      <small
+        *ngIf="getFormErrors('imageUrl', 'required')"
+        class="form-text invalid-form-text">
+        Enter image URL
+      </small>
+    </div>
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="ingredients"
+        name="ingredients"
+        placeholder="ingredients"
+      >
+      <small
+        *ngIf="getFormErrors('ingredients', 'required')"
+        class="form-text invalid-form-text d-block">
+        Enter ingredients
+      </small>
+    </div>
+
+    <div class="mb-3" formArrayName="steps">
+      <button (click)="addStep()" type="button" class="btn btn-outline-danger mb-2">Add skill</button>
+      <div class="mb-2 w-100" *ngFor="let step of getStepsControls(); let i = index">
+        <div [formGroupName]="i">
+          <div class="d-flex">
+            <input type="text" class="form-control" placeholder="stepImage" name="stepImage">
+            <div class="form-floating mb-3">
+                <textarea
+                  class="form-control"
+                  placeholder="Leave a description here"
+                  id="floatingTextarea"
+                  formControlName="stepDescription"
+                  name="stepDescription"
+                ></textarea>
+              <label for="floatingTextarea">Step description</label>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-dark"
+    >Save</button>
+  </form>
+</div>
+
