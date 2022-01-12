@@ -1,4 +1,29 @@
-.content{
-  display: flex;
-  flex-wrap: wrap;
+.block{
+ margin-left: 50px;
 }
+
+.content:hover{
+  box-shadow: 0 0 10px 6px lightgrey;
+  border-radius: 15px;
+}
+
+img{
+  width: 100%;
+  height: 250px;
+}
+
+button{
+  width: 40%;
+}
+
+button:hover{
+  box-shadow: 0 0 4px 2px #000;
+}
+
+.btn-danger:hover{
+  box-shadow: 0 0 4px 2px #c23616;
+}
+
+
+
+

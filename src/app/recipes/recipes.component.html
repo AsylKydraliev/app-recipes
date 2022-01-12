@@ -3,18 +3,25 @@
     <span class="visually-hidden">Loading...</span>
   </div>
 </div>
-<div class="card mt-3 col-8 m-auto" *ngIf="!loading">
-  <img [src]="imageUrl" class="card-img-top" style="width: 100%; height: 500px" alt="{{ name }}">
-  <div class="card-body">
-    <h5 class="card-title">{{ name }}</h5>
-    <p class="card-text">{{ description }}</p>
-    <p class="card-text"><small class="text-muted">{{ ingredients }}</small></p>
-    <div *ngFor="let step of steps; let i = index">
-      <div> <span>Step № {{i+1}}</span>
-        <p class="card-text">{{ step.stepDescription }}</p>
-        <img [src]="step.stepImage" class="card-img" alt="{{ step.stepDescription }}">
+<h2 class="text-center">Recipe information</h2>
+<button class="btn btn-warning m-2" (click)="goHome()"><< Home</button>
+<div class="card m-auto block mb-5" *ngIf="!loading">
+  <img [src]="imageUrl" class="card-img-top" style="width: 100%; height: 300px" alt="{{ name }}">
+  <div class="card-body text-center">
+    <h3 class="card-title">{{ name }}</h3>
+    <p class="card-text">Description: <strong>{{ description }}</strong></p>
+    <p class="card-text">Ingredients: <strong>{{ ingredients }}</strong></p>
+    <hr>
+    <div class="step bg-warning p-4 mt-3" *ngFor="let step of steps; let i = index">
+      <div> <h5>Step № {{i+1}}</h5>
+        <p class="card-text">Step description: <strong>{{ step.stepDescription }}</strong></p>
+        <img
+          [src]="step.stepImage"
+          style="width: 70%; height: 250px"
+          class="card-img" alt="{{ step.stepDescription }}"
+        >
       </div>
-      <button (click)="deleteStep(id)" class="btn btn-danger">Delete step</button>
+      <button (click)="deleteStep(id)" class="m-3 btn btn-danger">Delete step</button>
     </div>
   </div>
 </div>

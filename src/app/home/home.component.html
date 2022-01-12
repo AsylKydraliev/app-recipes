@@ -3,20 +3,23 @@
     <span class="visually-hidden">Loading...</span>
   </div>
 </div>
-<div class="d-flex flex-wrap" *ngIf="!loading">
-  <div class="card m-2" style="width: 18rem;" *ngFor="let recipe of recipes">
+<h2 class="text-center">My recipes</h2>
+<div class="block d-flex flex-wrap" *ngIf="!loading">
+  <div class="card m-2 content" style="width: 18em" *ngFor="let recipe of recipes">
     <img [src]="[recipe.imageUrl]" class="card-img-top" alt="{{ recipe.name }}">
-    <div class="card-body">
-      <h5 class="card-title">{{ recipe.name }}</h5>
-      <p class="card-text">{{ recipe.description }}</p>
-      <a [routerLink]="['recipes', recipe.id]" class="btn btn-primary">Recipe info</a>
-      <button (click)="delete(recipe.id)" class="btn btn-danger">
+    <div class="card-body text-center">
+      <h5 class="card-title"><strong>{{ recipe.name }}</strong> </h5>
+      <p class="card-text">Description: <strong>{{ recipe.description }}</strong> </p>
+      <a [routerLink]="['recipes', recipe.id]" class="btn btn-outline-info d-block mb-3">Recipe info</a>
+      <div class="buttons">
+        <button (click)="delete(recipe.id)" class="btn btn-danger">
         <span *ngIf="deleteId === recipe.id" class="spinner-border spinner-border-sm"
               role="status" aria-hidden="true"
         ></span>
-        <span *ngIf="deleteId !== recipe.id">Delete</span>
-      </button>
-      <button [routerLink]="['edit', recipe.id]" class="btn btn-dark">Edit</button>
+          <span *ngIf="deleteId !== recipe.id">Delete</span>
+        </button>&nbsp;
+        <button [routerLink]="['edit', recipe.id]" class="btn btn-dark">Edit</button>
+      </div>
     </div>
   </div>
 </div>

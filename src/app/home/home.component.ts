@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RecipeService } from '../shared/recipe.service';
 import { Recipe } from '../shared/recipe.model';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   recipes!: Recipe[];
   loading = false;
   deleteId = '';

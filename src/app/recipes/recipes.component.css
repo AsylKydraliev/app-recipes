@@ -1,0 +1,17 @@
+.block{
+  width: 40%;
+  box-shadow: 0 0 10px 6px lightgrey;
+}
+
+h2{
+  color: goldenrod;
+}
+
+.step{
+  border-radius: 10px;
+}
+
+.step:hover{
+  box-shadow: 0 0 10px 6px goldenrod;
+}
+

@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Recipe } from '../shared/recipe.model';
 import { RecipeService } from '../shared/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RecipeSteps } from '../shared/recipeSteps.model';
 
 @Component({
   selector: 'app-form',
@@ -70,7 +71,7 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit() {
-    const id = Math.random().toString();
+    const id = this.recipeId || Math.random().toString();
     const recipe = new Recipe(
       id,
       this.form.value.name,
@@ -81,6 +82,7 @@ export class FormComponent implements OnInit {
     )
 
     if(this.recipeId) {
+      console.log(this.recipeId)
       this.recipeService.recipeEdit(recipe).subscribe();
       this.recipeService.getRecipes();
       void this.router.navigate(['/']);
@@ -101,23 +103,23 @@ export class FormComponent implements OnInit {
 
   addStep() {
     this.addButtonDisabled = true;
-   if(this.recipesUpdate){
-     if(this.recipe?.steps.length !== this.editCount) {
-       this.recipe?.steps.forEach(step => {
-         const steps = <FormArray>this.form.get('steps');
-         const stepGroup = new FormGroup({
-           stepImage: new FormControl(`${step.stepImage}`, Validators.required),
-           stepDescription: new FormControl(`${step.stepDescription}`, Validators.required),
+     if(this.recipesUpdate){
+       if(this.recipe?.steps.length !== this.editCount) {
+         this.recipe?.steps.forEach((step: RecipeSteps) => {
+           const steps = <FormArray>this.form.get('steps');
+           const stepGroup = new FormGroup({
+             stepImage: new FormControl(`${step.stepImage}`, Validators.required),
+             stepDescription: new FormControl(`${step.stepDescription}`, Validators.required),
+           })
+           steps.push(stepGroup);
+           this.editCount = <number>this.recipe?.steps.length;
          })
-         steps.push(stepGroup);
-         this.editCount = <number>this.recipe?.steps.length;
-       })
+       }else{
+         this.getRecipeFormGroup();
+       }
      }else{
        this.getRecipeFormGroup();
      }
-   }else{
-     this.getRecipeFormGroup();
-   }
   }
 
   getStepsControls(){

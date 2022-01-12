@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../shared/recipe.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeSteps } from '../shared/recipeSteps.model';
 import { RecipeService } from '../shared/recipe.service';
 
@@ -19,7 +19,7 @@ export class RecipesComponent implements OnInit {
   steps!: RecipeSteps[];
   loading = false;
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) { }
 
   ngOnInit() {
     this.loading = true;
@@ -40,5 +40,9 @@ export class RecipesComponent implements OnInit {
 
   deleteStep(id: string) {
     this.recipeService.stepDelete(id);
+  }
+
+  goHome() {
+    void this.router.navigate(['/']);
   }
 }
