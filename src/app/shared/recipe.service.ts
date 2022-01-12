@@ -86,7 +86,6 @@ export class RecipeService{
     this.deleteLoading.next(true);
     this.http.delete(`https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes/${id}/steps.json`).subscribe(
       () => {
-        this.getRecipe(id);
         this.deleteLoading.next(false);
       }
     );

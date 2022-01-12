@@ -9,13 +9,11 @@
     <h5 class="card-title">{{ name }}</h5>
     <p class="card-text">{{ description }}</p>
     <p class="card-text"><small class="text-muted">{{ ingredients }}</small></p>
-    <div *ngFor="let step of steps">
-      <ol>
-        <li>
-          <p class="card-text">{{ step.stepDescription }}</p>
-          <img [src]="step.stepImage" class="card-img" alt="{{ step.stepDescription }}">
-        </li>
-      </ol>
+    <div *ngFor="let step of steps; let i = index">
+      <div> <span>Step № {{i+1}}</span>
+        <p class="card-text">{{ step.stepDescription }}</p>
+        <img [src]="step.stepImage" class="card-img" alt="{{ step.stepDescription }}">
+      </div>
       <button (click)="deleteStep(id)" class="btn btn-danger">Delete step</button>
     </div>
   </div>
