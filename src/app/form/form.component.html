@@ -60,11 +60,23 @@
     </div>
 
     <div class="mb-3" formArrayName="steps">
-      <button (click)="addStep()" type="button" class="btn btn-outline-danger mb-2">Add skill</button>
+      <button (click)="addStep()" type="button" class="btn btn-outline-danger mb-2">Add step</button>
       <div class="mb-2 w-100" *ngFor="let step of getStepsControls(); let i = index">
         <div [formGroupName]="i">
-          <div class="d-flex">
-            <input type="text" class="form-control" placeholder="stepImage" name="stepImage">
+          <div>
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="stepImage"
+                placeholder="stepImage"
+                name="stepImage"
+              >
+              <small *ngIf="getSkillsError('stepImage', 'required', i)"
+                     class="form-text invalid-form-text d-block">
+                Enter step image
+              </small>
+            </div>
             <div class="form-floating mb-3">
                 <textarea
                   class="form-control"
@@ -74,7 +86,11 @@
                   name="stepDescription"
                 ></textarea>
               <label for="floatingTextarea">Step description</label>
-              </div>
+              <small *ngIf="getSkillsError('stepDescription', 'required', i)"
+                     class="form-text invalid-form-text d-block">
+                Enter step image
+              </small>
+            </div>
           </div>
         </div>
       </div>

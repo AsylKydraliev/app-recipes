@@ -9,7 +9,8 @@ import { ResolverService } from './recipes/resolver.service';
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'add', component: FormComponent},
-  {path: ':id', component: RecipesComponent, resolve: {recipes: ResolverService}},
+  {path: 'recipes/:id', component: RecipesComponent, resolve: {recipe: ResolverService}},
+  {path: 'edit/:id', component: FormComponent, resolve: {recipe: ResolverService}},
   {path: '**', component: NotFoundComponent},
 ];
 

@@ -1,9 +1,12 @@
-<div class="card d-flex" style="width: 18rem;" *ngFor="let recipe of recipes">
-  <img [src]="recipe.imageUrl" class="card-img-top" alt="{{ recipe.name }}">
-  <div class="card-body">
-    <h5 class="card-title">{{ recipe.name }}</h5>
-    <p class="card-text">{{ recipe.description }}</p>
-    <a [routerLink]="[recipe.id]" class="btn btn-primary">Recipe info</a>
-    <button class="btn btn-danger">Delete</button>
+<div class="d-flex flex-wrap">
+  <div class="card m-2" style="width: 18rem;" *ngFor="let recipe of recipes">
+    <img [src]="[recipe.imageUrl]" class="card-img-top" alt="{{ recipe.name }}">
+    <div class="card-body">
+      <h5 class="card-title">{{ recipe.name }}</h5>
+      <p class="card-text">{{ recipe.description }}</p>
+      <a [routerLink]="['recipes', recipe.id]" class="btn btn-primary">Recipe info</a>
+      <button (click)="delete(recipe.id)" class="btn btn-danger">Delete</button>
+      <button [routerLink]="['edit', recipe.id]" class="btn btn-dark">Edit</button>
+    </div>
   </div>
 </div>

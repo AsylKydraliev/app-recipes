@@ -15,7 +15,11 @@ export class RecipeService{
   constructor(private http: HttpClient) {}
 
   postRecipe(recipe: Recipe){
-    this.http.post('https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes.json', recipe).subscribe();
+    this.http.post('https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes.json', recipe).subscribe(
+      () => {
+        this.getRecipes();
+      }
+    );
   }
 
   getRecipes(){
@@ -57,5 +61,25 @@ export class RecipeService{
         );
       })
     )
+  }
+
+  recipeDelete(id: string){
+    this.http.delete(`https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes/${id}.json`).subscribe(
+      () => {
+        this.getRecipes();
+      }
+    );
+  }
+
+  recipeEdit(recipe: Recipe){
+    const body = {
+      name: recipe.name,
+      description: recipe.description,
+      imageUrl: recipe.imageUrl,
+      ingredients: recipe.ingredients,
+      steps: recipe.steps,
+    }
+    return this.http.put(`https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes/${recipe.id}.json`, body)
+      .pipe();
   }
 }

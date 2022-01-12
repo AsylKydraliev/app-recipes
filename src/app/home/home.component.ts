@@ -18,4 +18,7 @@ export class HomeComponent implements OnInit {
     this.recipeService.getRecipes();
   }
 
+  delete(id: string) {
+    this.recipeService.recipeDelete(id)
+  }
 }
