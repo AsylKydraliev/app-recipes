@@ -10,6 +10,7 @@ import { RecipeService } from '../shared/recipe.service';
 })
 
 export class ResolverService implements Resolve<Recipe>{
+
   constructor(private recipeService: RecipeService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Recipe> | Observable<never> {

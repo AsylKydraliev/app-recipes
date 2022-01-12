@@ -15,6 +15,7 @@ export class FormComponent implements OnInit {
   recipeId = '';
   recipesUpdate = false;
   editCount = 0;
+  addButtonDisabled = false;
 
   constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute) { }
 
@@ -99,6 +100,7 @@ export class FormComponent implements OnInit {
   }
 
   addStep() {
+    this.addButtonDisabled = true;
    if(this.recipesUpdate){
      if(this.recipe?.steps.length !== this.editCount) {
        this.recipe?.steps.forEach(step => {

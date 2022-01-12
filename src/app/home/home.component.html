@@ -1,11 +1,21 @@
-<div class="d-flex flex-wrap">
+<div class="text-center mt-5" *ngIf="loading">
+  <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div class="d-flex flex-wrap" *ngIf="!loading">
   <div class="card m-2" style="width: 18rem;" *ngFor="let recipe of recipes">
     <img [src]="[recipe.imageUrl]" class="card-img-top" alt="{{ recipe.name }}">
     <div class="card-body">
       <h5 class="card-title">{{ recipe.name }}</h5>
       <p class="card-text">{{ recipe.description }}</p>
       <a [routerLink]="['recipes', recipe.id]" class="btn btn-primary">Recipe info</a>
-      <button (click)="delete(recipe.id)" class="btn btn-danger">Delete</button>
+      <button (click)="delete(recipe.id)" class="btn btn-danger">
+        <span *ngIf="deleteId === recipe.id" class="spinner-border spinner-border-sm"
+              role="status" aria-hidden="true"
+        ></span>
+        <span *ngIf="deleteId !== recipe.id">Delete</span>
+      </button>
       <button [routerLink]="['edit', recipe.id]" class="btn btn-dark">Edit</button>
     </div>
   </div>

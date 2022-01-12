@@ -60,7 +60,7 @@
     </div>
 
     <div class="mb-3" formArrayName="steps">
-      <button (click)="addStep()" type="button" class="btn btn-outline-danger mb-2">Add step</button>
+      <button (click)="addStep()" type="button" class="btn btn-outline-success mb-2">Add step</button>
       <div class="mb-2 w-100" *ngFor="let step of getStepsControls(); let i = index">
         <div [formGroupName]="i">
           <div>
@@ -97,6 +97,7 @@
     </div>
 
     <button
+      [disabled]="form.invalid || addButtonDisabled === false"
       type="submit"
       class="btn btn-dark"
     >Save</button>

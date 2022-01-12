@@ -11,6 +11,9 @@ import { Subject } from 'rxjs';
 export class RecipeService{
   recipes: Recipe[] | null = null;
   recipesChange = new Subject<Recipe[]>();
+  loadingChange = new Subject<boolean>();
+  deleteLoading = new Subject<boolean>();
+  recipeLoading = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
@@ -23,6 +26,7 @@ export class RecipeService{
   }
 
   getRecipes(){
+    this.loadingChange.next(true);
     this.http.get<{[id: string]: Recipe}>('https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes.json')
       .pipe(map(result => {
         if(result === null){
@@ -44,10 +48,15 @@ export class RecipeService{
         this.recipes = [];
         this.recipes = recipes;
         this.recipesChange.next(this.recipes.slice());
+        this.loadingChange.next(false);
+      }, () => {
+        this.loadingChange.next(false);
+
       })
   }
 
   getRecipe(id: string){
+    this.recipeLoading.next(true);
     return this.http.get<Recipe | null>(`https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes/${id}.json`).pipe(
       map(result => {
         if(!result) return null;
@@ -64,9 +73,21 @@ export class RecipeService{
   }
 
   recipeDelete(id: string){
+    this.deleteLoading.next(true);
     this.http.delete(`https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes/${id}.json`).subscribe(
       () => {
         this.getRecipes();
+        this.deleteLoading.next(false);
+      }
+    );
+  }
+
+  stepDelete(id: string){
+    this.deleteLoading.next(true);
+    this.http.delete(`https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes/${id}/steps.json`).subscribe(
+      () => {
+        this.getRecipe(id);
+        this.deleteLoading.next(false);
       }
     );
   }

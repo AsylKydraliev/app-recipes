@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../shared/recipe.model';
 import { ActivatedRoute } from '@angular/router';
 import { RecipeSteps } from '../shared/recipeSteps.model';
+import { RecipeService } from '../shared/recipe.service';
 
 @Component({
   selector: 'app-recipes',
@@ -14,14 +15,19 @@ export class RecipesComponent implements OnInit {
   description = '';
   imageUrl = '';
   ingredients = '';
+  id = '';
   steps!: RecipeSteps[];
+  loading = false;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.route.data.subscribe(data => {
+      this.recipeService.recipeLoading.next(false);
       this.recipe = <Recipe | null>data.recipe;
       if(this.recipe){
+        this.id = this.recipe.id
         this.name = this.recipe.name;
         this.description = this.recipe.description;
         this.imageUrl = this.recipe.imageUrl;
@@ -29,6 +35,10 @@ export class RecipesComponent implements OnInit {
         this.steps = this.recipe.steps;
       }
     })
+    this.loading = false;
   }
 
+  deleteStep(id: string) {
+    this.recipeService.stepDelete(id);
+  }
 }
