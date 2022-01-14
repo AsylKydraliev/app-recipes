@@ -17,14 +17,16 @@ export class RecipesComponent implements OnInit {
   ingredients = '';
   id = '';
   steps!: RecipeSteps[];
+  stepDescription = '';
+  stepImage = '';
 
   constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.recipe = <Recipe | null>data.recipe;
+      this.recipe = <Recipe>data.recipe;
       if(this.recipe){
-        this.id = this.recipe.id
+        this.id = this.recipe.id;
         this.name = this.recipe.name;
         this.description = this.recipe.description;
         this.imageUrl = this.recipe.imageUrl;
@@ -35,12 +37,6 @@ export class RecipesComponent implements OnInit {
   }
 
   deleteStep(id: string, index: number) {
-    // if(this.steps[0]) {
-    //   this.recipeService.stepDelete(id, index);
-    //   this.steps.splice(index, 1);
-    // }else{
-    //   this.steps = [];
-    // }
     this.recipeService.stepDelete(id, index);
     this.steps.splice(index, 1);
   }

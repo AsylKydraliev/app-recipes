@@ -13,7 +13,6 @@ export class RecipeService{
   recipes: Recipe[] | null = null;
   steps: RecipeSteps[] | null = null;
   recipesChange = new Subject<Recipe[]>();
-  stepsChange = new Subject<RecipeSteps[]>();
   loadingChange = new Subject<boolean>();
   deleteLoading = new Subject<boolean>();
 
@@ -53,7 +52,6 @@ export class RecipeService{
         this.loadingChange.next(false);
       }, () => {
         this.loadingChange.next(false);
-
       })
   }
 
