@@ -17,8 +17,6 @@ export class RecipesComponent implements OnInit {
   ingredients = '';
   id = '';
   steps!: RecipeSteps[];
-  stepDescription = '';
-  stepImage = '';
 
   constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) {}
 
