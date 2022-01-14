@@ -68,7 +68,7 @@
                   type="text"
                   class="form-control"
                   formControlName="stepImage"
-                  placeholder="stepImage"
+                  placeholder="image URl"
                   name="stepImage"
                 >
                 <small *ngIf="getSkillsError('stepImage', 'required', i)"
@@ -98,7 +98,8 @@
       [disabled]="form.invalid || addButtonDisabled === false"
       type="submit"
       class="btn btn-dark"
-    >Save</button>
+    >Save
+    </button>
   </form>
 </div>
 

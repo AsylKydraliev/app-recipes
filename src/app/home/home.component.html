@@ -3,7 +3,9 @@
     <span class="visually-hidden">Loading...</span>
   </div>
 </div>
+
 <h2 class="text-center">My recipes</h2>
+
 <div class="block d-flex flex-wrap" *ngIf="!loading">
   <div class="card m-2 content" style="width: 18em" *ngFor="let recipe of recipes">
     <img [src]="[recipe.imageUrl]" class="card-img-top" alt="{{ recipe.name }}">

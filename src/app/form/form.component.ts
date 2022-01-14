@@ -15,7 +15,7 @@ export class FormComponent implements OnInit {
   recipe: Recipe | null = null;
   recipeId = '';
   recipesUpdate = false;
-  editCount = 0;
+  editCount!: number;
   addButtonDisabled = false;
 
   constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute) { }
@@ -82,7 +82,6 @@ export class FormComponent implements OnInit {
     )
 
     if(this.recipeId) {
-      console.log(this.recipeId)
       this.recipeService.recipeEdit(recipe).subscribe();
       this.recipeService.getRecipes();
       void this.router.navigate(['/']);
@@ -104,8 +103,8 @@ export class FormComponent implements OnInit {
   addStep() {
     this.addButtonDisabled = true;
      if(this.recipesUpdate){
-       if(this.recipe?.steps.length !== this.editCount) {
-         this.recipe?.steps.forEach((step: RecipeSteps) => {
+       if(this.recipe?.steps && this.recipe?.steps.length !== this.editCount) {
+         this.recipe?.steps.forEach((step:RecipeSteps) => {
            const steps = <FormArray>this.form.get('steps');
            const stepGroup = new FormGroup({
              stepImage: new FormControl(`${step.stepImage}`, Validators.required),
@@ -114,7 +113,7 @@ export class FormComponent implements OnInit {
            steps.push(stepGroup);
            this.editCount = <number>this.recipe?.steps.length;
          })
-       }else{
+       }else {
          this.getRecipeFormGroup();
        }
      }else{

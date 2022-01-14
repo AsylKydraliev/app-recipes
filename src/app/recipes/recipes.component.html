@@ -1,17 +1,13 @@
-<div class="text-center mt-5" *ngIf="loading">
-  <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-</div>
-<h2 class="text-center">Recipe information</h2>
+<h2 class="text-center m-2">Recipe information</h2>
 <button class="btn btn-warning m-2" (click)="goHome()"><< Home</button>
-<div class="card m-auto block mb-5" *ngIf="!loading">
+<div class="card m-auto block mb-5">
   <img [src]="imageUrl" class="card-img-top" style="width: 100%; height: 300px" alt="{{ name }}">
   <div class="card-body text-center">
     <h3 class="card-title">{{ name }}</h3>
     <p class="card-text">Description: <strong>{{ description }}</strong></p>
     <p class="card-text">Ingredients: <strong>{{ ingredients }}</strong></p>
     <hr>
+    <h2>Steps</h2>
     <div class="step bg-warning p-4 mt-3" *ngFor="let step of steps; let i = index">
       <div> <h5>Step № {{i+1}}</h5>
         <p class="card-text">Step description: <strong>{{ step.stepDescription }}</strong></p>
@@ -21,7 +17,9 @@
           class="card-img" alt="{{ step.stepDescription }}"
         >
       </div>
-      <button (click)="deleteStep(id)" class="m-3 btn btn-danger">Delete step</button>
+      <button (click)="deleteStep(id, i)" class="m-3 btn btn-danger">
+        <span>Delete step</span>
+      </button>
     </div>
   </div>
 </div>

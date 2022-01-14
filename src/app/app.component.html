@@ -1,7 +1,14 @@
-<nav class="navbar navbar-dark bg-dark">
-  <div class="m-2">
-    <a class="navbar-brand mb-0 h1" routerLink="/">Home</a>
-    <a class="navbar-brand mb-0 h3" routerLink="/add" routerLinkActive="active">Add recipe</a>
+<div class="wrapper">
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="m-2">
+      <a class="navbar-brand mb-0 h1" routerLink="/">Recipes</a>
+      <a class="navbar-brand mb-0 h3" routerLink="/add" routerLinkActive="active">Add recipe</a>
+    </div>
+  </nav>
+  <div class="main">
+    <router-outlet></router-outlet>
   </div>
-</nav>
-<router-outlet></router-outlet>
+  <footer class="footer bg-dark p-3">
+    <span>@recipes.com</span>
+  </footer>
+</div>

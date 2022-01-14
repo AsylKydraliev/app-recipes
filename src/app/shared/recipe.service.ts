@@ -3,6 +3,7 @@ import { Recipe } from './recipe.model';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { RecipeSteps } from './recipeSteps.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,11 @@ import { Subject } from 'rxjs';
 
 export class RecipeService{
   recipes: Recipe[] | null = null;
+  steps: RecipeSteps[] | null = null;
   recipesChange = new Subject<Recipe[]>();
+  stepsChange = new Subject<RecipeSteps[]>();
   loadingChange = new Subject<boolean>();
   deleteLoading = new Subject<boolean>();
-  recipeLoading = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
@@ -56,7 +58,6 @@ export class RecipeService{
   }
 
   getRecipe(id: string){
-    this.recipeLoading.next(true);
     return this.http.get<Recipe | null>(`https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes/${id}.json`).pipe(
       map(result => {
         if(!result) return null;
@@ -82,13 +83,9 @@ export class RecipeService{
     );
   }
 
-  stepDelete(id: string){
-    this.deleteLoading.next(true);
-    this.http.delete(`https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes/${id}/steps.json`).subscribe(
-      () => {
-        this.deleteLoading.next(false);
-      }
-    );
+  stepDelete(id: string, index: number){
+    this.http.delete(`https://app-blog-f76a2-default-rtdb.firebaseio.com/recipes/${id}/steps/${index}.json`)
+      .subscribe();
   }
 
   recipeEdit(recipe: Recipe){

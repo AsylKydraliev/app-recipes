@@ -17,14 +17,11 @@ export class RecipesComponent implements OnInit {
   ingredients = '';
   id = '';
   steps!: RecipeSteps[];
-  loading = false;
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) {}
 
   ngOnInit() {
-    this.loading = true;
     this.route.data.subscribe(data => {
-      this.recipeService.recipeLoading.next(false);
       this.recipe = <Recipe | null>data.recipe;
       if(this.recipe){
         this.id = this.recipe.id
@@ -35,11 +32,17 @@ export class RecipesComponent implements OnInit {
         this.steps = this.recipe.steps;
       }
     })
-    this.loading = false;
   }
 
-  deleteStep(id: string) {
-    this.recipeService.stepDelete(id);
+  deleteStep(id: string, index: number) {
+    // if(this.steps[0]) {
+    //   this.recipeService.stepDelete(id, index);
+    //   this.steps.splice(index, 1);
+    // }else{
+    //   this.steps = [];
+    // }
+    this.recipeService.stepDelete(id, index);
+    this.steps.splice(index, 1);
   }
 
   goHome() {
